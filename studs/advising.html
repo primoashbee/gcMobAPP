@@ -142,7 +142,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <li class="header">Lists</li>
           
 			 <li class="treeview">
-              <a href="home.html"><i class="fa fa-link"></i> <span>My Stats</span> <i class="fa fa-angle-right pull-right"></i></a>
+              <a href="home.html"><i class="fa fa-link"></i> <span>My Stats</span> <i class="fa fa-angle-left pull-right"></i></a>
              
             </li>
 			 <li class="treeview">
@@ -150,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               
             </li>
 			<li class="treeview">
-              <a href="advising.html"><i class="fa fa-link"></i> <span>Advising</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <a href="advising.html"><i class="fa fa-link"></i> <span>Advising</span> <i class="fa fa-angle-right pull-left"></i></a>
              
             </li>
 			
@@ -297,6 +297,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script>
 	var x = JSON.parse(localStorage.getItem('LISTS'))
 	var code=[];
+	var stitle=[];
 	var sched;
 	$(function(){
 		$('#program').html(x.PROSPECTUS[0].NAME)
@@ -306,20 +307,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	$('.name').html(JSON.parse(localStorage.getItem('LISTS')).INFO.LNAME+", "+JSON.parse(localStorage.getItem('LISTS')).INFO.FNAME+", "+JSON.parse(localStorage.getItem('LISTS')).INFO.MNAME);
 	$('#enlisting').html(x.INFO.COURSE+" - "+x.INFO.YEARLEVEL +" - "+x.SEM[0]+" "+x.SEM[1])
 	$.each(x.ENLISTMENT,function(k,v){
-		$('#tblAdvising').append('<tr value=\"'+v.CODE+'\"><td>'+v.CODE+'</td><td>'+v.TITLE)
+	$('#tblAdvising').append('<tr value=\"'+v.CODE+'\" id=\"'+v.TITLE+'\"><td>'+v.CODE+'</td><td>'+v.TITLE)
 	
 	})
 	})
 	$("#tblAdvising").on('click','tr',function(e){
 	 e.preventDefault();
 	 var id = $(this).attr('value');
+	  title= $(this).attr('id');
 	if(($(this).css('background-color'))==("rgba(0, 0, 0, 0)")){
 	$(this).css('background-color',"rgb(60, 141, 188)");
 		code.push(id)
+		stitle.push(title);
 	} else {
 	$(this).css('background-color',"rgba(0,0,0,0)");
   //  console.log(id);
 	code.pop(id)
+	stitle.pop(title)
 	}
 	console.log(code)
 	});
@@ -338,9 +342,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	return;
 
 	}
+	$('#enlistedsubs').empty();
 	for(i=0;i<=code.length-1;i++){
 	$('#enlistedSched').html('Preffered Time: '+sched);
-	$('#enlistedsubs').append('<li>'+code[i]+'</li>');
+		$('#enlistedsubs').append('<li>'+code[i]+' - '+stitle[i]+'</li>');
 	}
 	$('#mdlEnlist').modal('show')
 	})

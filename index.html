@@ -111,6 +111,11 @@
 					localStorage.setItem('USERNAME',x);
 					localStorage.setItem('LISTS',JSON.stringify(data));
 					location.href="studs/home.html";
+					}else if(data.TYPE=="admin"){
+					}else{
+							$('#Warning').html('Invalid Username or Password');
+					$('#form-username').css('border',"3px solid rgb(253, 52, 29)");
+					$('#form-password').css('border',"3px solid rgb(253, 52, 29)");
 					}
 				
 					},
